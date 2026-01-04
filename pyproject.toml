@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "iptv-checker"
+version = "0.1.0"
+description = "A CLI tool to check IPTV playlists and streams."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [
+  { name = "Feini", email = "feini@example.com" },
+]
+dependencies = [
+  "typer",
+  "Pillow",
+]
+
+[project.scripts]
+iptv-checker = "iptv_checker.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["iptv_checker"]
