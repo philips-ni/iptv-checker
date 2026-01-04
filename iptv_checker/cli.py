@@ -19,7 +19,7 @@ def test_stream(url):
         ]
         
         # Run with a timeout of 10 seconds
-        result = subprocess.run(command, capture_output=True, text=True, timeout=10)
+        result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8', timeout=10)
         
         if result.returncode == 0 and result.stdout.strip():
             return True, result.stdout.strip()
@@ -92,7 +92,7 @@ def capture_frame(url, timestamp, output_file, timeout=30):
         output_file
     ]
     try:
-        result = subprocess.run(command, capture_output=True, text=True, timeout=timeout)
+        result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8', timeout=timeout)
         if os.path.exists(output_file) and os.path.getsize(output_file) > 0:
             return True, "Success"
         else:
@@ -205,7 +205,7 @@ def main(
 
     if file:
         try:
-            with open(file, "r") as f:
+            with open(file, "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 
             i = 0
@@ -299,9 +299,9 @@ def main(
         print(f"Working count:  {len(working_links) // 2 if any(l.startswith('#EXTINF') for l in working_links) else len(working_links)}") # Approx count
         
         try:
-            with open(file, "w") as f:
+            with open(file, "w", encoding="utf-8") as f:
                 # Re-read first line to check for header
-                with open(file, "r") as original_f:
+                with open(file, "r", encoding="utf-8") as original_f:
                     first_line = original_f.readline()
                     if first_line.startswith("#EXTM3U"):
                         f.write(first_line)
